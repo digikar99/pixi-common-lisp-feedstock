@@ -1,0 +1,47 @@
+package:
+  name: bordeaux-threads
+  version: "0.9.4"
+
+source:
+  git: https://github.com/sionescu/bordeaux-threads.git
+  rev: 21619023facf4709b58d240af816f3f7b488d2f6
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - global-vars
+    - trivial-features
+    - trivial-garbage
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "bordeaux-threads")'
+          --eval '(asdf:test-system "bordeaux-threads")'
+    requirements:
+      run:
+        - fiveam
+
+about:
+  repository: https://github.com/sionescu/bordeaux-threads.git
+  homepage: https://sionescu.github.io/bordeaux-threads/
+  documentation: https://sionescu.github.io/bordeaux-threads/
+  license: MIT
+  summary: Portable shared-state concurrency for Common Lisp
+  description: |
+    Bordeaux-Threads is a Common Lisp threading library.
+
+    It exposes generic primitives required for synchronization in
+    multi-threading programming, such as threads, mutexes, semaphores and
+    condition variables, as well as some atomic operations.
+
+    You can read its manual
+    [here](https://sionescu.github.io/bordeaux-threads/).

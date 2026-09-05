@@ -1,0 +1,45 @@
+package:
+  name: fiveam
+  version: "1.4.3"
+
+source:
+  git: https://github.com/lispci/fiveam
+  rev: 3ba1300a9dd6bafdaef2af76d261d73bdf7e4bf0
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - net.didierverna.asdf-flv
+    - trivial-backtrace
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "fiveam/test")'
+          --eval '(asdf:test-system "fiveam")'
+
+about:
+  repository: https://github.com/lispci/fiveam
+  homepage: https://fiveam.common-lisp.dev/
+  license: BSD-3-Clause
+  documentation: https://fiveam.common-lisp.dev/docs/index.html
+  summary: Common Lisp regression testing framework
+  description: |
+    FiveAM is a simple (as far as writing and running tests goes) regression
+    testing framework. It has been designed with Common Lisp's interactive
+    development model in mind.  Features
+
+      - Test and test suite hierarchies allow test to be organized into hierarchies to ease running.
+      - Functions for re-running recently run tests.
+      - Inter-test dependencies.
+      - Specification based testing ala QuickCheck.
+      - Redefined macros are instantly seen by the test code, no explicit recompilation
+    required. (this is exactly what LispUnit and FReT do)

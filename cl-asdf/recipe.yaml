@@ -1,0 +1,40 @@
+package:
+  name: cl-asdf
+  version: "3.3.7.4"
+
+source:
+  git: https://gitlab.common-lisp.net/asdf/asdf.git
+  rev: acfaef0a4c7ebdc9bf7e4bd65f33086fdf76ec0c
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(format t "~A~%" (asdf:asdf-version))'
+          --eval '(asdf:load-system "asdf")'
+          --eval '(string= "3.3.7.4" (asdf:system-version (asdf:find-system "asdf")))'
+
+about:
+  repository: https://gitlab.common-lisp.net/asdf/asdf.git
+  homepage: https://asdf.common-lisp.dev/
+  license: MIT
+  summary: ASDF builds Common Lisp software organized into defined systems. This package also installs sets up CL_SOURCE_REGISTRY variable for pixi environment.
+  documentation: https://asdf.common-lisp.dev/asdf.html
+  description: |
+    For general information about ASDF, consult the web page:
+      https://common-lisp.net/project/asdf/
+
+    For some reference documentation, read the manual:
+      https://common-lisp.net/project/asdf/asdf.html
+
+    For a guide on how to use it, read our "best practices" document:
+      https://github.com/fare/asdf/blob/master/doc/best_practices.md

@@ -1,0 +1,56 @@
+package:
+  name: trivial-features
+  version: "0.0.0.2026.09.03"
+
+source:
+  git: https://github.com/trivial-features/trivial-features
+  rev: b4f8dbd9c5cae969baf6cb656636b16603a15c45
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "trivial-features")'
+          ## --eval '(asdf:load-system "trivial-features-tests")'
+          ## trivial-features-tests depends on cffi; cffi depends on trivial-features.
+          ## We will defer testing of trivial-features to cffi.
+
+about:
+  repository: https://github.com/trivial-features/trivial-features
+  homepage: https://cliki.net/trivial-features
+  license: MIT
+  documentation: https://github.com/trivial-features/trivial-features/blob/master/SPEC.md
+  summary: Portable Common Lisp CL:*FEATURES*
+  description: |
+    trivial-features ensures consistent `*FEATURES*` across multiple Common Lisp
+    implementations.
+
+    For example, on MacOS X platforms, while most Lisps push `:DARWIN` to
+    `*FEATURES*`, CLISP and Allegro push `:MACOS` and `:MACOSX` instead,
+    respectively. Some Lisps might not push any feature suggesting MacOS X at
+    all. trivial-features will make sure all Lisps will have `:DARWIN` in the
+    `*FEATURES*` list when running on MacOS X. This way, you can write
+
+        #+darwin foo #-darwin bar
+
+    instead of
+
+        #+(or darwin macos macosx) foo #-(or darwin macos macosx) bar
+
+    The included
+    [SPEC.md](https://github.com/trivial-features/trivial-features/blob/master/SPEC.md)
+    document describes the set of symbols that should or should not be present
+    in `CL:*FEATURES*` on certain circumstances. This specification is
+    implemented by the TRIVIAL-FEATURES system which supports a handful of
+    Lisps.
+

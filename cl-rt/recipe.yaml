@@ -1,0 +1,43 @@
+package:
+  name: cl-rt
+  version: "0.0.0.2009.08.12"
+
+source:
+  git: http://git.kpe.io/rt.git
+  rev: a6a7503a0b47953bc7579c90f02a6dba1f6e4c5a
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive --eval '(require :asdf)' --eval '(asdf:load-system "rt")'
+
+about:
+  repository: http://git.kpe.io/rt.git
+  homepage: https://www.cliki.net/rt
+  documentation: https://www.cliki.net/rt
+  license: MIT
+  summary: rt is a 1990 regression testing library that is used by some older (Common Lisp) software.
+  description: |
+    rt is a 1990 regression testing library that is used by some older software.
+
+    [Paul Dietz](https://www.cliki.net/Paul%20Dietz) has added some features to
+    rt for his [GCL ANSI Test
+    Suite](https://www.cliki.net/GCL%20ANSI%20Test%20Suite). These extensions
+    have been incorporated into [sbcl](https://www.cliki.net/sbcl)'s sb-rt
+    package and [Kevin Rosenberg](https://www.cliki.net/Kevin%20Rosenberg)'s
+    cl-rt [Debian](https://www.cliki.net/Debian) package.
+
+    [Kevin Rosenberg](https://www.cliki.net/Kevin%20Rosenberg)'s git repository:
+    [http://git.kpe.io/?p=rt.git;a=summary](http://git.kpe.io/?p=rt.git;a=summary)
+
+    Old version from the CMU AI Repository:
+    [http://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/lang/lisp/code/testing/rt/0.html](http://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/lang/lisp/code/testing/rt/0.html)

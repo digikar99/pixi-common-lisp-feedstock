@@ -1,0 +1,40 @@
+package:
+  name: flexi-streams
+  version: "1.0.20"
+
+source:
+  git: https://github.com/edicl/flexi-streams.git
+  rev: 4951d575b8f73270802a03cc5812b8310409caa9
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - trivial-gray-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "flexi-streams-test")'
+          --eval '(flexi-streams-test:run-all-tests)'
+
+about:
+  repository: https://github.com/edicl/flexi-streams.git
+  homepage: http://edicl.github.io/flexi-streams/
+  license: BSD-2-Clause
+  summary: Flexible bivalent streams for Common Lisp
+  description: |
+    FLEXI-STREAMS implements "virtual" bivalent streams that can be layered atop
+    real binary or bivalent streams and that can be used to read and write
+    character data in various single- or multi-octet encodings which can be
+    changed on the fly. It also supplies in-memory binary streams which are
+    similar to string streams.
+
+    Complete documentation can be found in the docs directory or at the project
+    [documentation](https://edicl.github.io/flexi-streams/) site.

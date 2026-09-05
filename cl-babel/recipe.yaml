@@ -1,0 +1,53 @@
+package:
+  name: cl-babel
+  version: "0.0.0.2025.09.05"
+
+source:
+  git: https://github.com/cl-babel/babel.git
+  rev: 4eaf3f228be4f6860ccc0b0fbb4c1781a1ee6597
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - trivial-features
+    - trivial-gray-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "babel")'
+          --eval '(asdf:load-system "babel-streams")'
+          --eval '(asdf:test-system "babel")'
+    requirements:
+      run:
+        - hu.dwim.stefil
+
+about:
+  repository: https://github.com/cl-babel/babel.git
+  homepage: https://babel.common-lisp.dev/
+  documentation: https://quickref.common-lisp.net/babel.html
+  license: MIT
+  summary: Babel is a charset encoding/decoding library, not unlike GNU libiconv, written in pure Common Lisp.
+  description: |
+    Babel is a charset encoding/decoding library, not unlike GNU libiconv, but
+    completely written in Common Lisp.
+
+    It strives to achieve decent performance. To that effect, we use Clozure
+    CL's approach of calculating the destination buffer size in advance. Most of the
+    encoding/decoding algorithms have been adapted from Clozure CL's source. Another
+    important goal is reusability. Similarly to SBCL, we define an interface wherein
+    the algorithms can be reused between a variety of data types so long we're
+    dealing with conversions between octets and unicode code points.
+
+    Babel comes with converters between strings and octet vectors but can be
+    easily extended to deal with, e.g., strings and foreign memory, vectors and
+    Closure's runes, etc...
+

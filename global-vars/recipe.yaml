@@ -1,0 +1,59 @@
+package:
+  name: global-vars
+  version: "0.0.0.2014.10.12"
+
+source:
+  git: https://github.com/lmj/global-vars/
+  rev: c749f32c9b606a1457daa47d59630708ac0c266e
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+           --eval '(require :asdf)'
+           --eval '(asdf:load-system "global-vars")'
+           --eval '(asdf:test-system "global-vars")'
+
+about:
+  repository: https://github.com/lmj/global-vars/
+  homepage: https://github.com/lmj/global-vars/
+  documentation: https://github.com/lmj/global-vars/
+  license: MIT
+  summary: Define efficient global variables in Common Lisp.
+  description: |
+    **Synopsis**
+
+        ;; Similar to defparameter with regard to redefinitions
+        (define-global-parameter -x- 3)
+
+        ;; Similar to defvar with regard to redefinitions
+        (define-global-var -y- 4)
+
+        ;; ...
+
+        (setf -x- 5)
+        (setf -y- 6)
+
+
+    **Description**
+
+    In Common Lisp, a special variable that is never dynamically bound typically
+    serves as a stand-in for a global variable. The `global-vars` library
+    provides true global variables that are implemented by some compilers. An
+    attempt to rebind a global variable properly results in a compiler
+    error. That is, a global variable cannot be dynamically bound.
+
+    Global variables therefore allow us to communicate an intended usage that
+    differs from special variables. Global variables are also more efficient
+    than special variables, especially in the presence of threads.
+
+    For more information, see the [README.md](https://github.com/lmj/global-vars/blob/master/README.md).

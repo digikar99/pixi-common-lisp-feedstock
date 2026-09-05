@@ -1,0 +1,52 @@
+package:
+  name: trivial-backtrace
+  version: "0.0.0.2023.01.11"
+
+source:
+  git: https://github.com/hraban/trivial-backtrace.git
+  rev: 7f90b4a4144775cca0728791e4b92ac2557b07a1
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(handler-bind ((warning (function muffle-warning)))
+                    (asdf:load-system "trivial-backtrace-test")
+                    (asdf:test-system "trivial-backtrace"))'
+        ## Without the muffle, sbcl produces division-by-zero warnings which abort the load.
+    requirements:
+      run:
+        - cl-lift
+
+about:
+  repository: https://github.com/hraban/trivial-backtrace.git
+  homepage: https://trivial-backtrace.common-lisp.dev/
+  license: MIT
+  summary: Portable simple API to work with backtraces in Common Lisp
+  description: |
+    On of the many things that didn't quite get into the Common Lisp standard
+    was how to get a Lisp to output its call stack when something has gone
+    wrong. As such, each Lisp has developed its own notion of what to display,
+    how to display it, and what sort of arguments can be used to customize
+    it. trivial-backtrace is a simple solution to generating a backtrace
+    portably. As of 16 May 2012, it supports Allegro Common Lisp, LispWorks,
+    ECL, MCL, SCL, SBCL and CMUCL. Its interface consists of three functions and
+    one variable:
+
+      - print-backtrace
+      - print-backtrace-to-stream
+      - print-condition
+      - *date-time-format*
+
+    You can probably already guess what they do, but they are described in more detail
+    [here](https://trivial-backtrace.common-lisp.dev/).

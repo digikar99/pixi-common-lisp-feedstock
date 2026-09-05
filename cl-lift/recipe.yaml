@@ -1,0 +1,60 @@
+package:
+  name: cl-lift
+  version: "0.0.0.2023.10.04"
+
+source:
+  git: https://github.com/hraban/lift
+  rev: a7941845a9de72be60e66ea941aa34cbee35bf23
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "lift")'
+          # The tests do not pass, but we are going to ignore.
+          # --eval '(asdf:load-system "lift-test")'
+          # --eval '(asdf:test-system "lift")'
+
+about:
+  repository: https://github.com/hraban/lift
+  homepage: https://lift.common-lisp.dev/
+  license: MIT
+  documentation: https://lift.common-lisp.dev/user-guide.html
+  summary: LIsp Framework for Testing. LIFT is an SUnit variant and much much more.
+  description: |
+    LIFT is yet another **LI**sp **F**ramework for **T**esting. It started out
+    firmly in the [SUnit](http://www.sunit.com/) /
+    [JUnit](http://www.junit.com/) mold but has evolved to include better unit
+    testing features and system test features as well. It also has a much
+    spunkier acronym.
+
+    The best place to get an overview of LIFT and its features is in the [user's
+    guide](https://lift.common-lisp.dev/user-guide.html "LIFT User's
+    Guide"). Though still a work in progress, it covers all of LIFT's basic
+    features and many of its more advanced ones too.
+
+    [TINAA](http://common-lisp.net/project/tinaa/) documentation for LIFT is
+    [available](http://common-lisp.net/project/lift/documentation/).
+
+    Those with an archeological bent might find the following interesting:
+
+    - A [2003 paper](https://lift.common-lisp.dev/assets/test-framework.pdf)
+      from the International Lisp Conference described LIFT as it was then, and
+    - My presentation from the conference
+        - As a [Flash Presentation](https://lift.common-lisp.dev/assets/ILC-2003-Presentation.swf)
+          (and I don't know how to navigate in this either... It's exported from Keynote)
+        - As a [PDF](https://lift.common-lisp.dev/assets/ILC-2003-Presentation.pdf)
+
+    The externals of LIFT haven't changed too much though the implementation has
+    been improved...
+

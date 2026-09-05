@@ -1,0 +1,42 @@
+package:
+  name: slime
+  version: "2.32"
+
+source:
+  git: https://github.com/slime/slime.git
+  rev: 2fd4c2f08bf335872b8fff046f25b05179fb8571
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "swank")'
+          --eval '(asdf:test-system "swank")'
+
+about:
+  repository: https://github.com/slime/slime.git
+  homepage: https://slime.common-lisp.dev/
+  license: Unlicense
+  documentation: https://slime.common-lisp.dev/doc/html/
+  summary: The Superior Lisp Interaction Mode for Emacs
+  description: |
+    SLIME is the Superior Lisp Interaction Mode for Emacs.
+
+    SLIME extends Emacs with support for interactive programming in Common
+    Lisp. The features are centered around slime-mode, an Emacs minor-mode that
+    complements the standard lisp-mode. While lisp-mode supports editing Lisp
+    source files, slime-mode adds support for interacting with a running Common
+    Lisp process for compilation, debugging, documentation lookup, and so on.
+
+    For much more information, consult [the
+    manual](http://common-lisp.net/project/slime/doc/html/).

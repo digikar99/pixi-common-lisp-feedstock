@@ -1,0 +1,44 @@
+package:
+  name: cl-ppcre
+  version: "2.1.2"
+
+source:
+  git: https://github.com/edicl/cl-ppcre.git
+  rev: 80fb19d104647a2c4efd5f66f65811948bf8156b
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - flexi-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "cl-ppcre")'
+          --eval '(asdf:test-system "cl-ppcre")'
+
+about:
+  repository: https://github.com/edicl/cl-ppcre.git
+  homepage: https://edicl.github.io/cl-ppcre/
+  license: BSD-2-Clause
+  summary: Common Lisp regular expression library
+  description: |
+    CL-PPCRE is a portable regular expression library for Common Lisp which has the following features:
+
+      - It is compatible with Perl (especially when used in conjunction with cl-interpol, to allow compatible parsing of regexp strings).
+      - It is pretty fast.
+      - It is portable between ANSI-compliant Common Lisp implementations.
+      - It is thread-safe.
+      - In addition to specifying regular expressions as strings like in Perl you can also use S-expressions.
+      - It comes with a BSD-style license so you can basically do with it whatever you want.
+
+    CL-PPCRE has been used successfully in various applications like BioBike, clutu, LoGS, CafeSpot, Eboy, or The Regex Coach.
+
+    Further documentation can be found in docs/index.html, or on the [cl-ppcre homepage](https://edicl.github.io/cl-ppcre/).

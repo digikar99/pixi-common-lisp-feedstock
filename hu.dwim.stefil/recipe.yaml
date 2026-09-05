@@ -1,0 +1,41 @@
+package:
+  name: hu.dwim.stefil
+  version: "0.0.0.2026.02.24"
+
+source:
+  git: https://github.com/hu-dwim/hu.dwim.stefil
+  rev: 256474e6ea23a6654cb859624f8c04c0b7469197
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - hu.dwim.asdf
+    - slime # hu.dwim.stefil itself does not depend on swank; but its extensions do!
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "hu.dwim.stefil")'
+          --eval '(asdf:test-system "hu.dwim.stefil")'
+
+about:
+  repository: https://github.com/hu-dwim/hu.dwim.stefil
+  homepage: https://www.cliki.net/Stefil
+  license: MIT
+  summary: Common Lisp testing framework blending into normal Slime development.
+  description: |
+    Stefil is a Common Lisp testing (anti-)framework where tests are merely
+    augmented `DEFUN*`’s, coupled with a smarter `ASSERT` macro (called
+    `IS`). Unexpected situations are integrated into the condition system with
+    additional restarts.
+
+    For more information, see the project [README](https://github.com/hu-dwim/hu.dwim.stefil/blob/main/README.org)
+    as well as an [older documentation](https://stefil.common-lisp.dev/index-old.shtml).

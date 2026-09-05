@@ -1,0 +1,30 @@
+package:
+  name: hu.dwim.asdf
+  version: "0.0.0.2026.02.24"
+
+source:
+  git: https://github.com/hu-dwim/hu.dwim.asdf
+  rev: 87548f0b0ae7e6acff3782981bac39bacc801a36
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive --eval '(require :asdf)' --eval '(asdf:load-system "hu.dwim.asdf")'
+
+about:
+  repository: https://github.com/hu-dwim/hu.dwim.asdf
+  homepage: https://hub.darcs.net/hu.dwim/hu.dwim.asdf
+  license: MIT
+  documentation: https://40ants.com/lisp-project-of-the-day/2020/04/0043-hu.dwim.asdf.html
+  summary: Various ASDF extensions such as attached test and documentation system, explicit development support, etc.
+  description: |
+    No description provided.
