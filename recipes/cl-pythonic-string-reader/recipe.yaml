@@ -1,0 +1,32 @@
+package:
+  name: cl-pythonic-string-reader
+  version: "0.0.0.2018.06.17"
+
+source:
+  git: https://github.com/smithzvk/pythonic-string-reader
+  rev: 47a70ba1e32362e03dad6ef8e6f36180b560f86a
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - named-readtables
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "pythonic-string-reader")'
+
+about:
+  repository: https://github.com/smithzvk/pythonic-string-reader
+  homepage: https://github.com/smithzvk/pythonic-string-reader
+  license: BSD-3-Clause
+  summary: A simple and unintrusive Common Lisp read table modification inspired by Python's three quote strings.
+  description: |
+    See [the README](https://github.com/smithzvk/pythonic-string-reader/blob/master/README.org) for more information.

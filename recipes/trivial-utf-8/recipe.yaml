@@ -1,0 +1,37 @@
+package:
+  name: trivial-utf-8
+  version: "0.0.0.2026.09.04"
+
+source:
+  git: https://gitlab.common-lisp.net/trivial-utf-8/trivial-utf-8
+  rev: a017cfabbbec69e06c68ae5655fac50e4dc921cb
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - mgl-pax-bootstrap
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "trivial-utf-8")'
+          --eval '(asdf:test-system "trivial-utf-8")'
+
+about:
+  repository: https://gitlab.common-lisp.net/trivial-utf-8/trivial-utf-8
+  documentation: https://gitlab.common-lisp.net/trivial-utf-8/trivial-utf-8/-/blob/master/README.md?ref_type=heads
+  license: Zlib
+  summary: A small common lisp library for doing UTF-8-based input and output.
+  description: |
+    Trivial UTF-8 is a small library for doing UTF-8-based in- and output on a Lisp implementation that already supports Unicode - meaning [`CHAR-CODE`](http://www.lispworks.com/documentation/HyperSpec/Body/f_char_c.htm "CHAR-CODE (MGL-PAX:CLHS FUNCTION)") and [`CODE-CHAR`](http://www.lispworks.com/documentation/HyperSpec/Body/f_code_c.htm "CODE-CHAR (MGL-PAX:CLHS FUNCTION)") deal with Unicode character codes.
+
+    The rationale for the existence of this library is that while Unicode-enabled implementations usually do provide some kind of interface to dealing with character encodings, these are typically not terribly flexible or uniform.
+
+    The [Babel](https://common-lisp.net/project/babel/) library solves a similar problem while understanding more encodings. Trivial UTF-8 was written before Babel existed, but for new projects you might be better off going with Babel. The one plus that Trivial UTF-8 has is that it doesn't depend on any other libraries.

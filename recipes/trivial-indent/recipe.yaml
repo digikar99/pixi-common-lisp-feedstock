@@ -1,0 +1,36 @@
+package:
+  name: trivial-indent
+  version: "0.0.0.2026.07.05"
+
+source:
+  git: https://codeberg.org/shinmera/trivial-indent.git
+  rev: 5905ac0233dc28359a5d6cb28834b0b07ee9cabe
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "trivial-indent")'
+
+about:
+  repository: https://codeberg.org/shinmera/trivial-indent.git
+  homepage: https://shinmera.com/docs/trivial-indent/
+  documentation: https://shinmera.com/docs/trivial-indent/
+  license: Zlib
+  summary: A very simple common lisp library to allow indentation hints for SWANK. 
+  description: |
+    This allows you to define custom indentation hints for your macros if the
+    one recognised by Slime, Sly, or other editors automatically produces
+    unwanted results.
+
+    See [the docs](https://shinmera.com/docs/trivial-indent/) for more details.

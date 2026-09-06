@@ -1,0 +1,50 @@
+package:
+  name: cl-try
+  version: "0.0.0.2026.07.10"
+
+source:
+  git: https://github.com/melisgl/try
+  rev: 91bd78de512c2f29d5f5d905f435432a3463ba6a
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - cl-ppcre
+    - closer-mop
+    - cl-ieee-floats
+    - mgl-pax
+    - trivial-gray-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "try")'
+
+about:
+  repository: https://github.com/melisgl/try
+  homepage: https://github.com/melisgl/try
+  documentation: https://fixnum.com/try-manual.html
+  license: MIT
+  summary: Try is an extensible Common Lisp test anti-framework with equal support for interactive and non-interactive workflows, as well as Emacs integration.
+  description: |
+    Try is a library for unit testing with equal support for interactive and
+    non-interactive workflows. Tests are functions, and almost everything else
+    is a condition, whose types feature prominently in parameterization.
+
+    Try is what we get if we make tests functions and build a test framework on top
+    of the condition system as
+    [Stefil](https://common-lisp.net/project/stefil/index-old.shtml) did but also
+    address the issue of rerunning and replaying, make the
+    [`IS`](https://github.com/melisgl/try#x-28TRY-3AIS-20MGL-PAX-3AMACRO-29) check
+    more capable, use the types of the condition hierarchy to parametrize what to
+    debug, print, rerun, and finally document the whole thing.
+
+    For more information, see [the manual](https://fixnum.com/try-manual.html).

@@ -1,0 +1,50 @@
+package:
+  name: cl-colorize
+  version: "0.0.0.2024.11.09"
+
+source:
+  git: https://github.com/kingcons/colorize
+  rev: c41fcc5833ebcf184f48aaf31ab89a9a1c230464
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - cl-html-encode
+    - split-sequence
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "colorize")'
+          --eval '(asdf:test-system "colorize")'
+
+about:
+  repository: https://github.com/kingcons/colorize
+  documentation: https://github.com/kingcons/colorize/blob/master/README.md
+  license: MIT
+  summary: A Syntax Highlighting library
+  description: |
+    colorize is a common lisp library for syntax highlighting supporting the following languages:
+
+    -   Common Lisp, `:common-lisp`
+    -   Emacs Lisp, `:elisp`
+    -   Scheme, `:scheme`
+    -   Clojure, `:clojure` _alpha_
+    -   C, `:c`
+    -   C++, `:c++`
+    -   Java, `:java`
+    -   Python, `:python`
+    -   Erlang, `:erlang`
+    -   Haskell, `:haskell`
+    -   Objective-C, `:objective-c`
+    -   Diff, `:diff`
+    -   Webkit, `:webkit`
+

@@ -1,0 +1,69 @@
+package:
+  name: mgl-pax
+  version: "0.0.0.2026.08.03"
+
+source:
+  git: https://github.com/melisgl/mgl-pax
+  rev: d91517cf9b76a21e50d90968e4a80b685e22dd34
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - cl-autoload
+    - cl-dref
+    - cl-md5
+    - cl-pythonic-string-reader
+    - named-readtables
+    - 3bmd
+    - trivial-utf-8
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "mgl-pax")'
+
+about:
+  repository: https://github.com/melisgl/mgl-pax
+  homepage: https://github.com/melisgl/mgl-pax
+  documentation: https://fixnum.com/pax-manual.html
+  license: MIT
+  summary: PAX, the Common Lisp documentation system
+  description: |
+    _What if documentation were code?_
+
+    If some narrative glued docstrings together, we'd be able to develop and explore
+    the code alongside its documentation. The main tool that PAX provides for this
+    is
+    [`DEFSECTION`](https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3ADEFSECTION-20MGL-PAX-3AMACRO-29):
+
+        (defsection @foo-random-manual (:title "Foo Random manual")
+          "Foo Random is a random number generator library."
+          (foo-random-state class)
+          (uniform-random function)
+          (@foo-random-examples section))
+
+    Like the one above, sections can have docstrings and references to definitions
+    (e.g. `(UNIFORM-RANDOM FUNCTION)`). These are the glue. To support interactive
+    development, PAX
+
+      - makes [SLIME](https://slime.common-lisp.dev/ "SLIME")'s [`M-.`](http://common-lisp.net/project/slime/doc/html/Finding-definitions.html#Finding-definitions) work with references
+      - and adds a documentation browser.
+
+    See [Emacs Setup](https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40EMACS-SETUP-20MGL-PAX-3ASECTION-29).
+
+    Beyond interactive workflows, [Generating Documentation](https://github.com/melisgl/mgl-pax#x-28MGL-PAX-3A-40GENERATING-DOCUMENTATION-20MGL-PAX-3ASECTION-29)
+    from sections and all the referenced items in Markdown or HTML format is also
+    implemented.
+
+    PAX [emphasizes the narrative](https://quotenil.com/multifaceted-development.html)
+    much like Literate Programming, but it is an
+    [untangled LP](https://quotenil.com/untangling-literate-programming.html) system.
+
+    For more information, see [the manual](https://fixnum.com/pax-manual.html).

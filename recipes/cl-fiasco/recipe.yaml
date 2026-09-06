@@ -1,0 +1,42 @@
+package:
+  name: cl-fiasco
+  version: "0.0.0.2020.05.14"
+
+source:
+  git: https://github.com/joaotavora/fiasco
+  rev: bb47d2fef4eb24cc16badc1c9a73d73c3a7e18f5
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - trivial-gray-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "fiasco")'
+          --eval '(asdf:test-system "fiasco")'
+
+about:
+  repository: https://github.com/joaotavora/fiasco
+  documentation: https://github.com/joaotavora/fiasco/blob/master/README.md
+  license: MIT
+  summary: A Common Lisp test framework that treasures your failures, logical continuation of Stefil.
+  description: |
+    Fiasco is a simple and powerful test framework for Common Lisp, with a focus
+    on interactive debugging.
+
+    It's a fork of the abandoned
+    [Stefil](http://common-lisp.net/project/stefil/index-old.shtml) by Attila
+    Lendvai, Tamás Borbély and Levente Mészáros.
+
+    See [the README](https://github.com/joaotavora/fiasco/blob/master/README.md) for
+    more details.

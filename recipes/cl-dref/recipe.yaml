@@ -1,0 +1,37 @@
+package:
+  name: cl-dref
+  version: "0.0.0.2026.07.29"
+
+source:
+  git: https://github.com/melisgl/dref
+  rev: 8c85a95ac1e306c8a90ca247f3c1f9eda15a9ed4
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - cl-autoload
+    - cl-pythonic-string-reader
+    - named-readtables
+    - slime
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "dref")'
+
+about:
+  repository: https://github.com/melisgl/dref
+  homepage: https://github.com/melisgl/dref
+  documentation: https://fixnum.com/dref-manual.html
+  license: MIT
+  summary: Reify definitions, provide portable access to arglists, docstrings and source locations in an extensible framework.
+  description: |
+    Some [defining forms](http://www.lispworks.com/documentation/HyperSpec/Body/26_glo_d.htm#defining_form) do not create first-class [objects](http://www.lispworks.com/documentation/HyperSpec/Body/26_glo_o.htm#object). For example, [`DEFUN`](http://www.lispworks.com/documentation/HyperSpec/Body/m_defun.htm) creates [`FUNCTION`](http://www.lispworks.com/documentation/HyperSpec/Body/t_fn.htm") objects, but [`DEFVAR`](http://www.lispworks.com/documentation/HyperSpec/Body/m_defpar.htm) does not create variable objects, as no such thing exists in Common Lisp. The main purpose of this library is to fill this gap with the introduction of [`DREF`](https://github.com/melisgl/dref#x-28DREF-3ADREF-20CLASS-29 objects.

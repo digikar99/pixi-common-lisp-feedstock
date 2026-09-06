@@ -1,0 +1,55 @@
+package:
+  name: named-readtables
+  version: "0.0.0.2026.07.01"
+
+source:
+  git: https://github.com/melisgl/named-readtables
+  rev: 9b774b51a08124c41881f10b30fb33425a3e6085
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - mgl-pax-bootstrap
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "named-readtables")'
+
+about:
+  repository: https://github.com/melisgl/named-readtables
+  homepage: https://github.com/melisgl/named-readtables
+  documentation: https://github.com/melisgl/named-readtables/blob/master/README.md
+  license: BSD-3-Clause
+  summary: Library that creates a namespace for Common Lisp readtables akin to the namespace of packages.
+  description: |
+    Named-Readtables is a library that provides a namespace for readtables akin
+    to the already-existing namespace of packages. In particular:
+
+      - you can associate readtables with names, and retrieve readtables by names;
+
+      - you can associate source files with readtable names, and be sure that the
+        right readtable is active when compiling/loading the file;
+
+      - similiarly, your development environment now has a chance to automatically
+        determine what readtable should be active while processing source forms on
+        interactive commands (e.g. think of C-c C-c in Slime (yet to be done)).
+
+    It follows that Named-Readtables is a facility for using readtables in a
+    localized way.
+
+    Additionally, it also attempts to become a facility for using readtables in a
+    modular way. In particular:
+
+      - it provides a macro to specify the content of a readtable at a glance;
+
+      - it makes it possible to use multiple inheritance between readtables.
+
+    For more information, see [the manual](https://github.com/melisgl/named-readtables/blob/master/README.md)

@@ -1,0 +1,50 @@
+package:
+  name: esrap
+  version: "0.0.0.2025.10.10"
+
+source:
+  git: https://github.com/scymtym/esrap
+  rev: 54debc55fad878e5632b81cf093bf206f4735167
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - trivial-with-current-source-form
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "esrap")'
+          --eval '(asdf:test-system "esrap")'
+    requirements:
+      run:
+        - fiveam
+
+about:
+  repository: https://github.com/scymtym/esrap
+  homepage: https://scymtym.github.io/esrap/
+  documentation: https://scymtym.github.io/esrap/
+  license: MIT
+  summary: Common Lisp packrat parser
+  description: |
+    In addition to regular Packrat / Parsing Grammar / TDPL features ESRAP supports:
+
+      - dynamic redefinition of nonterminals
+      - inline grammars
+      - semantic predicates
+      - introspective facilities (describing grammars, tracing, setting breaks)
+      - left-recursive grammars
+      - functions as terminals
+      - accurate, customizable parse error reports
+
+    Homepage & Documentation
+
+      https://scymtym.github.io/esrap/

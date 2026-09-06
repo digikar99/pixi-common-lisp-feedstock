@@ -1,0 +1,36 @@
+package:
+  name: cl-md5
+  version: "0.0.0.2021.06.22"
+
+source:
+  git: https://github.com/pmai/md5
+  rev: 906593fa6f4c3bb351cd02dbb6509062aacdaaf6
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - flexi-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "md5")'
+          --eval '(asdf:test-system "md5")'
+
+about:
+  repository: https://github.com/pmai/md5
+  license: CC0-1.0
+  summary: Common Lisp implementation of the MD5 Message-Digest Algorithm RFC 1321
+  description: |
+    This package implements The MD5 Message-Digest Algorithm, as defined in RFC 1321 by R. Rivest, published April 1992.
+
+    It was originally written by Pierre R. Mai, with copious input from the cmucl-help mailing-list hosted at cons.org, in November 2001 and has been placed into the public domain. In the meantime various fixes and improvements for other implementations as well as maintenance have been provided by Christophe Rhodes, Alexey Dejneka, Nathan Froyd, Andreas Fuchs, John Desoi, Dmitriy Ivanov, and Kevin M. Rosenberg, and have been reintegrated into this consolidated version by Pierre R. Mai.
+
+    **WARNING:** The MD5 Message-Digest Algorithm has been compromised as a cryptographically secure hash for some time, with known theoretical and practical attacks. Therefore use of this implemenation is only recommended for legacy uses or uses which do not require a cryptographically secure hash. Use one of the newer SHA-2 and SHA-3 secure hash standards, or whatever is currently deemed cryptographically secure for all other uses.

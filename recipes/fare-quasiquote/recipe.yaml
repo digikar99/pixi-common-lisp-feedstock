@@ -1,0 +1,46 @@
+package:
+  name: fare-quasiquote
+  version: "0.0.0.2026.01.26"
+
+source:
+  git: https://github.com/fare/fare-quasiquote
+  rev: 6c368df0898d530dc39b1e00d84acbcc05c1339b
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - fare-utils
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "fare-quasiquote")'
+          --eval '(asdf:test-system "fare-quasiquote")'
+    requirements:
+      run:
+        - trivia
+        - hu.dwim.stefil
+
+about:
+  repository: https://github.com/fare/fare-quasiquote
+  homepage: https://github.com/fare/fare-quasiquote
+  documentation: https://github.com/fare/fare-quasiquote/blob/master/README.md
+  license: MIT
+  summary: Portable implementation of quasiquote for Common Lisp
+  description: |
+    The main purpose of this n+2nd reimplementation of quasiquote, is enable
+    matching of quasiquoted patterns, using trivia.
+
+    Now, developing this implementation was also a challenge in understanding
+    the ins and outs of quasiquotation, and in exploring the way it interacts
+    with extended support for constant-building syntactic constructs. And this,
+    at least to me was as much fun as it was an intellectual challenge.
+
+    For more information, see [the README](https://github.com/fare/fare-quasiquote/blob/master/README.md).

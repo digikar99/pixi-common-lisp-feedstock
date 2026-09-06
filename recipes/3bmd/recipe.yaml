@@ -1,0 +1,43 @@
+package:
+  name: 3bmd
+  version: "0.0.0.2026.06.26"
+
+source:
+  git: https://github.com/3b/3bmd
+  rev: 41262d9885fe324f157f892ad3ebbfdb5561250f
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - cl-colorize
+    - esrap
+    - split-sequence
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "3bmd")'
+          --eval '(asdf:test-system "3bmd")'
+    requirements:
+      run:
+        - cl-fiasco
+
+about:
+  repository: https://github.com/3b/3bmd
+  documentation: https://github.com/3b/3bmd/blob/master/README.md
+  license: MIT
+  summary: Markdown processor in Common Lisp using esrap parser
+  description: |
+    Common Lisp [Markdown](http://daringfireball.net/projects/markdown/) -> html converter, using [esrap](https://github.com/scymtym/esrap) for parsing, and grammar based on [peg-markdown](https://github.com/jgm/peg-markdown).
+
+    Currently a bit slow and uses lots of RAM for large documents (particularly when using the top-level `doc` parser instead of reading documents as a sequence of `block`s), but seems to handle the tests from [peg-markdown](https://github.com/jgm/peg-markdown) reasonably well.
+
+    Note that this library processes [Markdown](http://daringfireball.net/projects/markdown/) and not the newer (and better specified) [CommonMark](https://commonmark.org/), so may not behave quite as expected for people used to the latter. See [issue #53](https://github.com/3b/3bmd/issues/53) for some discussion on why CommonMark support isn't currently planned, and would probably be in a separate library if it were implemented.

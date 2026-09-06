@@ -1,0 +1,43 @@
+package:
+  name: cl-ieee-floats
+  version: "0.0.0.2022.01.26"
+
+source:
+  git: https://github.com/marijnh/ieee-floats
+  rev: 9566ce8adfb299faef803d95736c780413a1373c
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - fiveam
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "ieee-floats")'
+          --eval '(asdf:test-system "ieee-floats")'
+
+about:
+  repository: https://github.com/marijnh/ieee-floats
+  homepage: https://ieee-floats.common-lisp.dev/
+  documentation: https://ieee-floats.common-lisp.dev/
+  license: Zlib
+  summary: Common Lisp IEEE-754 float en- and decoding
+  description: |
+    IEEE-Floats provides a way of converting values of type float and
+    double-float to and from their binary representation as defined by IEEE 754
+    (which is commonly used by processors and network protocols).
+
+    The library defines encoding and decoding functions for the common 32-bit and
+    64-bit formats, and a macro for defining similar functions for other
+    formats. The default functions do not detect the special cases for NaN or
+    infinity, but functions can be generated which do, in which case the keywords
+    :not-a-number, :positive-infinity, and :negative-infinity are used to represent
+    them.
