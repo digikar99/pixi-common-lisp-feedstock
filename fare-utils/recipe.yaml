@@ -1,0 +1,40 @@
+package:
+  name: fare-utils
+  version: "0.0.0.2022.11.29"
+
+source:
+  git: https://github.com/fare/fare-utils
+  rev: 2f9c48a23a5c0802566d869d73a58471c05e63f1
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - trivia
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "fare-utils")'
+          --eval '(asdf:test-system "fare-utils")'
+    requirements:
+      run:
+        - hu.dwim.stefil
+
+about:
+  repository: https://github.com/fare/fare-utils
+  homepage: https://github.com/fare/fare-utils
+  license: LicenseRef-bugroff
+  license_file: LICENSE
+  summary: General purposes utilities for Common Lisp
+  description: |
+    fare-utils is a package full of miscellaneous code that I've used at one
+    point or the other while hacking Common Lisp code: macros, functions, classes,
+    offering a variety of classic utilities and datastructures, plus management of
+    package.

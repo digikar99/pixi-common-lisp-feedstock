@@ -1,0 +1,36 @@
+package:
+  name: cl-eos
+  version: "0.0.0.2020.07.31"
+
+source:
+  git: https://github.com/adlai/Eos.git
+  rev: b4413bccc4d142cbe1bf49516c3a0a22c9d99243
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "eos")'
+          --eval '(asdf:test-system "eos")'
+
+about:
+  repository: https://github.com/adlai/Eos.git
+  homepage: https://github.com/adlai/Eos.git
+  license: MIT
+  summary: Unmaintained test framework for Common Lisp
+  description: |
+    Eos was a unit testing library for Common Lisp.
+
+    It began as a fork of [FiveAM](https://github.com/sionescu/fiveam); however,
+    FiveAM development has continued, while that of Eos has not. Thus, Eos is now
+    deprecated in favor of FiveAM.

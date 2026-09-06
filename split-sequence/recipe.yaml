@@ -1,0 +1,40 @@
+package:
+  name: split-sequence
+  version: "2.0.1"
+
+source:
+  git: https://github.com/sharplispers/split-sequence
+  rev: e1b91281e13e7e1490fdcaf7e8aeda04759ec3b7
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "split-sequence")'
+          --eval '(asdf:test-system "split-sequence")'
+    requirements:
+      run:
+        - fiveam
+
+about:
+  repository: https://github.com/sharplispers/split-sequence
+  homepage: https://github.com/sharplispers/split-sequence
+  documentation: https://cl-utilities.common-lisp.dev/doc/split-sequence.html
+  license: MIT
+  summary: A member of the Common Lisp Utilities family of programs, designed by community consensus.
+  description: |
+    [SPLIT-SEQUENCE](http://cliki.net/split-sequence) is a member of the [Common Lisp Utilities](http://cliki.net/Common%20Lisp%20Utilities) family of programs, designed by community consensus.
+
+    Splits sequence into a list of subsequences delimited by objects satisfying the test.
+
+    See [the documentation](https://cl-utilities.common-lisp.dev/doc/split-sequence.html) for more information.

@@ -1,0 +1,36 @@
+  package:
+  name: string-case
+  version: "0.0.0.2018.06.18"
+
+source:
+  git: https://github.com/pkhuong/string-case.git
+  rev: 718c761e33749e297cd2809c7ba3ade1985c49f7
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "string-case")'
+
+about:
+  repository: https://github.com/pkhuong/string-case.git
+  homepage: https://pvk.ca/Blog/Lisp/string_case_bis.html
+  license: BSD-3-Clause
+  summary: STRING-CASE is a Common Lisp macro that generates specialised decision trees to dispatch on string equality
+  description: |
+
+        (string-case (string &key default)
+           case*)
+         case ::= string form*
+                | t      form*
+         Where t is the default case

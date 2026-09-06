@@ -1,0 +1,46 @@
+package:
+  name: cl-optima
+  version: "0.0.0.2015.06.29"
+
+source:
+  git: https://github.com/m2ym/optima
+  rev: 373b245b928c1a5cce91a6cb5bfe5dd77eb36195
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - closer-mop
+    - cl-ppcre
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "optima")'
+          --eval '(asdf:load-system "optima.ppcre")'
+          --eval '(asdf:test-system "optima")'
+    requirements:
+      run:
+        - cl-eos
+
+about:
+  repository: https://github.com/m2ym/optima
+  homepage: https://github.com/m2ym/optima
+  documentation: https://github.com/m2ym/optima/blob/master/README.md
+  license: LicenseRef-LLGPL
+  license_file: LICENSE
+  summary: Optimized Pattern Matching Library for Common Lisp
+  description: |
+    optima is a fast pattern matching library which uses optimizing techniques
+    widely used in the functional programming world. See the following
+    references for more details:
+
+      - [Optimizing Pattern Matching](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.6.5507) by Fabrice Le Fessant, Luc Maranget
+      - [The Implementation of Functional Programming Languages](http://research.microsoft.com/en-us/um/people/simonpj/papers/slpj-book-1987/) by Simon Peyton Jones

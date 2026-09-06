@@ -1,0 +1,54 @@
+package:
+  name: parse-declarations
+  version: "0.0.0.2009.09.08"
+
+source:
+  git: https://gitlab.common-lisp.net/parse-declarations/parse-declarations
+  rev: 549aebbfb9403a7fe948654126b9c814f443f4f2
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "parse-declarations-1.0")'
+
+about:
+  repository: https://gitlab.common-lisp.net/parse-declarations/parse-declarations
+  homepage: https://parse-declarations.common-lisp.dev/
+  documentation: https://parse-declarations.common-lisp.dev/manual/parse-declarations.html
+  license: MIT
+  summary: Common Lisp Library to parse and rebuild declarations
+  description: |
+    Parse-Declarations is a Common Lisp library to help writing macros which
+    establish bindings. To be semantically correct, such macros must take user
+    declarations into account, as these may affect the bindings they
+    establish. Yet the ANSI standard of Common Lisp does not provide any
+    operators to work with declarations in a convenient, high-level way.
+
+    This library provides such operators. In particular, it includes facilities to
+
+    -   parse a `&BODY` parameter into body forms, declarations, and documentation string (see [parse-body](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html#parse_002dbody)),
+    -   parse declarations into a special data structure "[declaration-env](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html#declaration_002denv)" (see [parse-declarations](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html#parse_002ddeclarations)),
+    -   filter declaration specifiers stored in such a data structure conveniently (see [filter-declaration-env](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html#filter_002ddeclaration_002denv)),
+    -   construct actual declarations again for macros to expand to (see [build-declarations](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html#build_002ddeclarations)).
+
+    All declaration specifiers defined by the ANSI standard are
+    understood. Furthermore, Parse-Declarations provides ways for the user to
+    customize how unknown declaration specifiers are parsed. In particular, it
+    allows users to
+
+    -   extend the set of known declaration specifiers (see [analyze-declaration-specifier](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html#analyze_002ddeclaration_002dspecifier) and [build-declaration-specifier](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html#build_002ddeclaration_002dspecifier)),
+    -   parse any declaration specifier (including the standardized ones) in arbitrary ways (see [map-declaration-env](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html#map_002ddeclaration_002denv)).
+
+    For more information, see [the manual](https://parse-declarations.common-lisp.dev/manual/parse-declarations.html).
+

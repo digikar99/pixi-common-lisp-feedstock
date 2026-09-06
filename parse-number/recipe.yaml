@@ -1,0 +1,54 @@
+package:
+  name: parse-number
+  version: "1.8"
+
+source:
+  git: https://github.com/sharplispers/parse-number
+  rev: cb9e48758a51ddf3296b56c41ce0006617b00916
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "parse-number")'
+          --eval '(asdf:test-system "parse-number")'
+
+about:
+  repository: https://github.com/sharplispers/parse-number
+  homepage: https://cliki.net/parse-number
+  documentation: https://www.crategus.com/books/parse-number/
+  license: BSD-3-Clause
+  summary: A library of functions for parsing strings into one of the standard Common Lisp number types without using the reader.
+  description: |
+    PARSE-NUMBER is a library of functions which accept an arbitrary
+    string and attempt to parse it, if possible into one of the standard
+    Common Lisp number types without using the reader, or else signal an
+    error of type INVALID-NUMBER
+
+    **Functions**
+
+    - PARSE-NUMBER (string &key start end radix)
+
+    - PARSE-REAL-NUMBER (string &key start end radix)
+
+    - PARSE-POSITIVE-REAL-NUMBER (string &key start end radix)
+
+    **Error conditions**
+
+    - INVALID-NUMBER (inherits PARSE-ERROR)
+
+    **Accessors**
+
+    - INVALID-NUMBER-VALUE
+    - INVALID-NUMBER-REASON
+
