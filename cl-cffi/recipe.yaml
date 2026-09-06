@@ -1,10 +1,10 @@
 package:
   name: cl-cffi
-  version: "0.24.1"
+  version: "0.24.1.2026.08.21"
 
 source:
   git: https://github.com/cffi/cffi
-  rev: 677cabae64b181330a3bbbda9c11891a2a8edcdc
+  rev: 787d3cd94404f85c0324b0f8d6b9c535fc091720
   submodules: false
 
 build:
@@ -19,7 +19,7 @@ requirements:
     - trivial-features
     - cl-babel
     - ${{ compiler('c') }}
-    - libffi <=3.3
+    - libffi
 
 tests:
   - script:
