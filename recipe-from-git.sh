@@ -42,7 +42,7 @@ else
   VERSION="0.0.0.${DATE}"
 fi
 
-OUTDIR="${PKG_NAME}"
+OUTDIR="recipes/${PKG_NAME}"
 mkdir -p "$OUTDIR"
 
 cat > "$OUTDIR/recipe.yaml" <<EOF
