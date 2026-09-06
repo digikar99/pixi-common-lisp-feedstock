@@ -66,7 +66,10 @@ requirements:
 
 tests:
   - script:
-      - sbcl --no-userinit --non-interactive --eval '(require :asdf)' --eval '(asdf:load-system "${SYSTEM}")'
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "${SYSTEM}")'
+          --eval '(asdf:test-system "${SYSTEM}")'
 
 about:
   repository: ${REPO_URL}
