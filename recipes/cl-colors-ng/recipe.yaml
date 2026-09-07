@@ -1,0 +1,48 @@
+package:
+  name: cl-colors-ng
+  version: "0.0.0.2024.12.25"
+
+source:
+  git: https://codeberg.org/cage/cl-colors-ng
+  rev: 310e6495e2658d33a7500455fd461074748ef805
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - cl-ppcre
+    - parse-number
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "cl-colors-ng")'
+          --eval '(asdf:test-system "cl-colors-ng")'
+    requirements:
+      run:
+        - cl-unit2
+
+about:
+  repository: https://codeberg.org/cage/cl-colors-ng
+  documentation: https://codeberg.org/cage/cl-colors-ng/src/branch/master/introduction.org
+  license: BSL-1.0
+  summary: A simple color library for common lisp
+  description: |
+    This is a very simple color library for Common Lisp, providing:
+
+      1.  Types for representing colors in HSV, HSL and RGB(A) spaces.
+      2.  Simple conversion functions between the above types (and also hexadecimal representation for RGB(A)).
+      3.  Some predefined colors as an association list of names and symbols which are bound to a corresponding RGB value.
+
+          1.  [X11 color names](https://en.wikipedia.org/wiki/X11_color_names) as `*x11-color-list*`
+          2.  [SVG basic color names](https://www.w3.org/TR/2018/REC-css-color-3-20180619/#html4) as `*svg-colors-list*`
+          3.  [SVG extended color names](https://www.w3.org/TR/2018/REC-css-color-3-20180619/#svg-color) as `*svg-extended-colors-list*`
+
+    See [the README](https://codeberg.org/cage/cl-colors-ng/src/branch/master/README.org) for more details.

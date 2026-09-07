@@ -1,0 +1,44 @@
+package:
+  name: ironclad
+  version: "0.61"
+
+source:
+  git: https://github.com/sharplispers/ironclad
+  rev: d4fe172e4a44b2ac5ab73cf97372314f98e8b8a7
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - bordeaux-threads
+    - cl-md5
+    - flexi-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "ironclad")'
+          --eval '(asdf:test-system "ironclad")'
+    requirements:
+      run:
+        - cl-rt
+
+about:
+  repository: https://github.com/sharplispers/ironclad
+  documentation: https://github.com/sharplispers/ironclad/blob/master/README.org
+  license: BSD-3-Clause
+  summary: A cryptographic toolkit written in Common Lisp
+  description: |
+    Ironclad is a cryptography library written entirely in Common Lisp. It includes support for several popular [ciphers](https://github.com/sharplispers/ironclad#ciphers), [digests](https://github.com/sharplispers/ironclad#digests), [MACs](https://github.com/sharplispers/ironclad#message-authentication-codes) and [public key cryptography](https://github.com/sharplispers/ironclad#public-key-cryptography) algorithms. For several implementations that support Gray streams, support is included for convenient [stream wrappers](https://github.com/sharplispers/ironclad#gray-streams).
+
+    Most of the algorithms were written with efficiency for specific Common Lisp implementations in mind, although portable code is provided as an alternative in nearly all instances. The framework should be flexible enough to accommodate implementation-specific optimizations when possible.
+
+    Test vectors for many of the algorithms are included to provide a level of confidence in the correctness of the implementations.
+
+    See [the README](https://github.com/sharplispers/ironclad/blob/master/README.org) for more details.

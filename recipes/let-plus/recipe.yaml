@@ -1,0 +1,44 @@
+package:
+  name: let-plus
+  version: "0.0.0.2018.03.07"
+
+source:
+  git: https://github.com/tpapp/let-plus
+  rev: 7cf18b29ed0fe9c667a9a6a101b08ab9661a59e9
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - anaphora
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "let-plus")'
+          --eval '(asdf:test-system "let-plus")'
+    requirements:
+      run:
+        - cl-lift
+
+about:
+  repository: https://github.com/tpapp/let-plus
+  documentation: https://github.com/tpapp/let-plus/blob/master/README.org
+  license: BSL-1.0
+  summary: Destructuring extension of let* for Common Lisp
+  description: |
+    Highlights:
+
+      -   clean, consistent syntax and small implementation (less than 300 LOC, not counting tests)
+      -   placeholder macros allow editor hints and syntax highlighting
+      -   `&ign` for ignored values (in forms where that makes sense)
+      -   very easy to extend
+
+    See [the README](https://github.com/tpapp/let-plus/blob/master/README.org) for more details.

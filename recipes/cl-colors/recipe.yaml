@@ -1,0 +1,43 @@
+package:
+  name: cl-colors
+  version: "0.0.0.2018.03.07"
+
+source:
+  git: https://github.com/tpapp/cl-colors
+  rev: 827410584553f5c717eec6182343b7605f707f75
+  submodules: false
+
+build:
+  noarch: generic
+  script: build.sh
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - let-plus
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "cl-colors")'
+          --eval '(asdf:test-system "cl-colors")'
+    requirements:
+      run:
+        - cl-lift
+
+about:
+  repository: https://github.com/tpapp/cl-colors
+  documentation: https://github.com/tpapp/cl-colors/blob/master/README.org
+  license: BSL-1.0
+  summary: A simple color library for Common Lisp, succeeded by cl-colors2 and cl-colors-ng
+  description: |
+    This is a very simple color library for Common Lisp, providing
+
+      1. Types for representing colors in HSV and RGB spaces.
+      2. Simple conversion functions between the above types (and also hexadecimal representation for RGB).
+      3. Some predefined colors (currently X11 color names – of course the library does not depend on X11).
+
+    See [the README](https://github.com/tpapp/cl-colors/blob/master/README.org) for more details.
+
