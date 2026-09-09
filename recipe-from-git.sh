@@ -57,7 +57,11 @@ source:
 
 build:
   noarch: generic
-  script: build.sh
+  script:
+    - DEST="\$PREFIX/common-lisp/${SYSTEM}"
+    - mkdir -p "\$DEST"
+    - cp -r . "\$DEST/"
+    - rm -rf "\$DEST/.git"
 
 requirements:
   run:
@@ -80,14 +84,4 @@ about:
     <No description provided.>
 EOF
 
-cat > "$OUTDIR/build.sh" <<EOF
-#!/bin/bash
-set -euo pipefail
-DEST="\$PREFIX/common-lisp/${SYSTEM}"
-mkdir -p "\$DEST"
-cp -r . "\$DEST/"
-rm -rf "\$DEST/.git"
-EOF
-chmod +x "$OUTDIR/build.sh"
-
-echo "Generated $OUTDIR/recipe.yaml and $OUTDIR/build.sh"
+echo "Generated $OUTDIR/recipe.yaml"
