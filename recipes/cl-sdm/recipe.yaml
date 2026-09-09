@@ -1,10 +1,9 @@
 package:
   name: cl-sdm
-  version: "0.99.38"
+  version: "0.99.38.2026.07.31"
 
 source:
-  url: https://fossil.cyberia9.org/cl-sdm/uv/cl-sdm-0.99.38.tar.bz2
-  sha256: e34fa7f9226215fa928ddac51303eeeb7e9fd4162dbc01afd4c9aa8b2f5dbe08
+  path: cl-sdm--20260731214300-de458d6bcd.tar.gz
 
 build:
   noarch: generic
