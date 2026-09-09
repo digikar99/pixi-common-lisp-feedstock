@@ -1,0 +1,40 @@
+package:
+  name: cl-remizmq
+  version: "0.0.0.2026.06.01"
+
+source:
+  path: cl-remizmq--20260601214045-ecd8edc85c.tar.gz
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/cl-remizmq"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - bordeaux-threads
+    - cl-sdm >0.99.38.2025.12.31
+    - cl-cffi
+    - trivial-garbage
+    - trivial-indent
+    - zeromq
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "cl-remizmq")'
+          --eval '(asdf:load-system "cl-remizmq-examples")'
+
+about:
+  repository: https://fossil.cyberia9.org/cl-remizmq/dir?ci=trunk
+  homepage: https://fossil.cyberia9.org/cl-remizmq/
+  license: GPL-3.0-or-later
+  summary: Common Lisp library for ZeroMQ v4.x and v5.x.
+  description: |
+    `CL-RemiZMQ` is a library for Common Lisp that implements bindings for [ZeroMQ](https://zeromq.org/). This includes ZeroMQ sockets, messages, timers, atomics, and proxies. It has been primarily developed on SBCL, but should also work in ClozureCL or most other Lisp implementations that support threads.
