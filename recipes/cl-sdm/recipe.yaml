@@ -1,0 +1,44 @@
+package:
+  name: cl-sdm
+  version: "0.99.38"
+
+source:
+  url: https://fossil.cyberia9.org/cl-sdm/uv/cl-sdm-0.99.38.tar.bz2
+  sha256: e34fa7f9226215fa928ddac51303eeeb7e9fd4162dbc01afd4c9aa8b2f5dbe08
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/cl-sdm"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - cl-babel
+    - trivial-indent
+    - trivial-gray-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "cl-sdm")'
+          --eval '(asdf:test-system "cl-sdm")'
+    requirements:
+      run:
+        - fiveam
+        - flexi-streams
+
+about:
+  repository: https://fossil.cyberia9.org/cl-sdm/dir?ci=trunk
+  homepage: https://fossil.cyberia9.org/cl-sdm/
+  license: GPL-3.0-or-later
+  summary: Remilia's standard library for Common Lisp
+  description: |
+    CL-SDM is a library that provides utility functions and some extra batteries to Common Lisp. It is, essentially, my personal standard library of things I tend to use often. CL-SDM supports SBCL primarily and is tested regularly with it. ClozureCL and Clisp are also supported, and CL-SDM is tested semi-regularly with these. ECL seems to works, but it has some strange quirks, and is rarely tested.
+
+    See the [project website](https://fossil.cyberia9.org/cl-sdm/) for more details.
