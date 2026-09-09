@@ -1,0 +1,50 @@
+package:
+  name: concrete-syntax-tree
+  version: "0.3.0"
+
+source:
+  git: https://github.com/s-expressionists/Concrete-Syntax-Tree
+  rev: 85c04b77f9e7b3c8349d454490139c50b014648c
+  submodules: false
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/concrete-syntax-tree"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - acclimation
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "concrete-syntax-tree")'
+          --eval '(asdf:test-system "concrete-syntax-tree")'
+    requirements:
+      run:
+        - fiveam
+
+about:
+  repository: https://github.com/s-expressionists/Concrete-Syntax-Tree
+  documentation: https://s-expressionists.github.io/Concrete-Syntax-Tree/concrete-syntax-tree.html
+  license: BSD-2-Clause
+  summary: Concrete Syntax Trees represent s-expressions with source information
+  description: |
+    This library addresses the issue of attaching source information to s-expressions, and in particular Common Lisp source code. Source information refers the place an s-expression came from such as the line and a range of columns in a file or editor buffer. The issue arises because when Common Lisp code is processed, for example by macros, the code is represented as Common Lisp objects which do a provide a way of attaching source information (and as a consequence, the objects returned by functions like `cl:read` cannot contain any source information).
+
+    The solution offered by this library is based on a Concrete Syntax Tree (or CST for short) data structure which is an alternative representation of a Common Lisp expression such that source information can be associated with object in the expression. Since clients have different requirements and capabilities, this library does not provide or specify the nature of the source information that is attached to CST nodes.
+
+    Besides the core protocols and data structures for CSTs, this library provides:
+
+      -   A CST “reconstruction” function helps with macroexpansion which, given an input CST, requires taking the raw expression out of the input CST, apply the macro expander to the raw expression, turning the expansion from a raw expression back into a CST. The “reconstruction” aspect comes from the fact that the function reuses parts of the input CST in the resulting CST, when possible, so that identity and source information are preserved.
+      
+      -   For Common Lisp code that is represented a CST, this library provides utilities for canonicalizing declarations, parsing lambda lists, separating declarations and documentation strings and code bodies, checking whether a form is a proper list, etc. All these utilities accept CSTs as their arguments and produce CSTs as their results. Whenever possible, these utilities propagate any source information from their arguments to their results.
+
+    This document only gives a very brief overview and highlights some features. Proper documentation can be found [here](https://s-expressionists.github.io/Concrete-Syntax-Tree/concrete-syntax-tree.html).
