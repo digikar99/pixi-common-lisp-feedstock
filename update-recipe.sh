@@ -59,8 +59,8 @@ if [[ "$n" == "6" ]]; then
     echo "$pkg: commit strategy -> ${sha:0:8} ($date)  version $version -> $new_version"
 else
     read -r tag sha < <(
-        git ls-remote --tags --refs "$url" \
-            | awk -F'\t' '{sub("refs/tags/","",$2); print $2, $1}' \
+        git ls-remote --tags "$url" \
+            | awk -F'\t' '{ref=$2; sub("refs/tags/","",ref); sub(/\^\{\}$/,"",ref); sha[ref]=$1} END{for (t in sha) print t, sha[t]}' \
             | sort -k1,1V | tail -n1
     )
     new_version="${tag#v}"; new_version="${new_version#V}"
