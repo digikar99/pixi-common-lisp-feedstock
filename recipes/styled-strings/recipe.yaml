@@ -1,0 +1,56 @@
+package:
+  name: styled-strings
+  version: "0.0.0.2026.09.12"
+
+source:
+  git: https://codeberg.org/digikar/styled-strings.git
+  rev: bee2e4ca32b02eefa2c6689e6ae393f0629e184d
+  submodules: false
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/styled-strings"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "styled-strings")'
+
+about:
+  repository: https://codeberg.org/digikar/styled-strings.git
+  documentation: https://codeberg.org/digikar/styled-strings/src/branch/main/README.md
+  license: MIT
+  summary:  Common Lisp string wrappers with ANSI styling
+  description: |
+    Common Lisp string wrappers with ANSI styling
+
+    API
+
+    -   make-styled-string
+    -   unstyle
+    -   ensure-unstyled
+    -   derive-style
+    -   make-style
+    -   style-foreground
+    -   style-background
+    -   style-bold-p
+    -   style-italics-p
+    -   style-underline-p
+    -   ss-foreground
+    -   ss-background
+    -   ss-bold-p
+    -   ss-italics-p
+    -   ss-underline-p
+    -   `*default-string-style*`
+    -   format-styled
