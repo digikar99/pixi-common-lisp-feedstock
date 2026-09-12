@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# recipe-from-git.sh - scaffold a recipe.yaml (w/o deps) from a git repo
-# Usage: ./recipe-from-git.sh <package-name> <repo-url> [ref]
+# generate-recipe-from-git.sh - scaffold a recipe.yaml (w/o deps) from a git repo
+# Usage: ./generate-recipe-from-git.sh <package-name> <repo-url> [ref]
 set -euo pipefail
 
 PKG_NAME="$1"

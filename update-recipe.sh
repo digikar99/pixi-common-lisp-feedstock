@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# update_recipe.sh — bump one flat rattler-build recipe.yaml.
+# update-recipe.sh — bump one flat rattler-build recipe.yaml.
 #
 #   package.version has 3 dot-separated elements  -> pin to latest git tag
 #   package.version has 6 dot-separated elements  -> pin to latest commit,
@@ -15,7 +15,7 @@
 #
 # Requires: git only.
 #
-# Usage: ./update_recipe.sh lisp-project-name [--dry-run] [--branch BRANCH]
+# Usage: ./update-recipe.sh lisp-project-name [--dry-run] [--branch BRANCH]
 
 set -euo pipefail
 
