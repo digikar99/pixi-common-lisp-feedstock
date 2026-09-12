@@ -36,7 +36,8 @@ for pkg in "${PACKAGES[@]}"; do
         rattler-build build --recipe recipe.yaml \
                       --output-dir "$OUT" \
                       --channel "$OUT" \
-                      --channel "$CHANNEL_URL"
+                      --channel "$CHANNEL_URL" \
+                      --allow-symlinks-on-windows
     )
 done
 
