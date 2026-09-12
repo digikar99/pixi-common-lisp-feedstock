@@ -1,10 +1,10 @@
 package:
   name: cl-ansi-text
-  version: "2.0.1.2025.09.13"
+  version: "2.0.1.2026.09.07"
 
 source:
   git: https://github.com/pnathan/cl-ansi-text
-  rev: 406e12c37d07aff3bc75f66900db30bf38d60af4
+  rev: 9825f96392daef4d7c0feaabbe71352edf379e27
   submodules: false
 
 build:
