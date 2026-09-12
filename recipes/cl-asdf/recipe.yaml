@@ -10,6 +10,7 @@ source:
 build:
   noarch: generic
   script: build.sh
+  number: 1
 
 requirements:
   run:
