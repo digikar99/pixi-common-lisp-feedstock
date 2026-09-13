@@ -16,3 +16,13 @@ else
   export CL_SOURCE_REGISTRY="${CONDA_PREFIX}/common-lisp//"
 fi
 EOF
+
+# Same, for cmd.exe activation on Windows
+cat > "$PREFIX/etc/conda/activate.d/cl-asdf.bat" <<'EOF'
+@echo off
+if defined PIXI_PROJECT_ROOT (
+  set "CL_SOURCE_REGISTRY=%PIXI_PROJECT_ROOT%//;%CONDA_PREFIX%/common-lisp//"
+) else (
+  set "CL_SOURCE_REGISTRY=%CONDA_PREFIX%/common-lisp//"
+)
+EOF
