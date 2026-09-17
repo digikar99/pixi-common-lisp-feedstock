@@ -8,28 +8,40 @@ source:
   submodules: false
 
 build:
-  noarch: generic
+  number: 2
   script: build.sh
 
 requirements:
+  build:
+    # We need this for bash and other utils
+    - if: win
+      then: m2-base
+  host:
+    - if: win
+      then: libffi
   run:
     - sbcl
     - cl-asdf
     - alexandria
     - trivial-features
     - cl-babel
-    - ${{ compiler('c') }}
+    - if: win
+      then: gcc_win-64
+      else: ${{ compiler('c') }}
     - libffi
 
 tests:
   - script:
       - sbcl --no-userinit --non-interactive
-          --eval '(require :asdf)'
-          --eval '(asdf:load-system "trivial-features-tests")'
-          --eval '(asdf:test-system "trivial-features")'
-          --eval '(handler-bind ((style-warning (function muffle-warning)))
-                    (asdf:load-system "cffi-tests")
-                    (asdf:test-system "cffi"))'
+          --eval "(require :asdf)"
+          --eval "(asdf:load-system :trivial-features-tests)"
+          --eval "(asdf:test-system :trivial-features)"
+          --eval "(handler-bind ((style-warning (function muffle-warning)))
+                  (asdf:load-system :cffi-toolchain)
+                  (when (member :win cl:*features*)
+                    (setf cffi-toolchain:*cc* \"x86_64-w64-mingw32-gcc\"))
+                  (asdf:load-system :cffi-tests)
+                  (asdf:test-system :cffi))"
 
     requirements:
       run:
