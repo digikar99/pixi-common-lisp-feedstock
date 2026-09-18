@@ -1,0 +1,41 @@
+package:
+  name: cl-change-case
+  version: "1.0"
+
+source:
+  git: https://github.com/rudolfochrist/cl-change-case
+  rev: 368ce53e1792941bd802cc93f5a04e4a4a4fef2b
+  submodules: false
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/cl-change-case"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - cl-ppcre
+    - cl-unicode
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "cl-change-case")'
+          --eval '(asdf:test-system "cl-change-case")'
+    requirements:
+      run:
+        - fiveam
+
+about:
+  repository: https://github.com/rudolfochrist/cl-change-case
+  documentation: https://github.com/rudolfochrist/cl-change-case/blob/master/README.org
+  license: MPL-2.0
+  summary: Common Lisp library to convert strings between camelCase, param-case, snake_case and more
+  description: |
+    Common Lisp library to convert strings between camelCase, param-case, snake_case and more.

@@ -1,0 +1,49 @@
+package:
+  name: cl-str
+  version: "0.22"
+
+source:
+  git: https://github.com/vindarel/cl-str
+  rev: 69ef8b4111398ecf530b1303d8644976d1517c53
+  submodules: false
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/cl-str"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - cl-ppcre
+    - cl-unicode
+    - cl-change-case
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "str")'
+          --eval '(asdf:test-system "str")'
+    requirements:
+      run:
+        - fiveam
+
+about:
+  repository: https://github.com/vindarel/cl-str
+  documentation: https://vindarel.github.io/cl-str/#/
+  license: MIT
+  summary: Modern, consistent and terse Common Lisp string manipulation library.
+  description: |
+    Why ?
+
+    -   modernity, simplicity and discoverability:
+    -   `(str:trim s)` instead of `(string-trim '(#\Backspace #\Tab #\Linefeed #\Newline #\Vt #\Page #\Return #\Space #\Rubout #\Next-Line #\No-break_space) s))`, or `str:concat strings` instead of an unusual `format` construct; one discoverable library instead of many;
+    -   consistence and composability, where `s` is always the last argument, which makes it easier to feed pipes and arrows.
+    -   fixing built-in surprises: `(string-downcase nil`) => `"nil"` the string, whereas `(str:downcase nil)` => `nil`.
+
+    See [the documentation](https://vindarel.github.io/cl-str/#/) for more details.

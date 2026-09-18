@@ -1,0 +1,42 @@
+package:
+  name: cl-unicode
+  version: "0.0.0.2023.11.18"
+
+source:
+  git: https://github.com/edicl/cl-unicode
+  rev: 07e7ff58913fb31f78f500e1be84ee2270bb6e30
+  submodules: false
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/cl-unicode"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - cl-ppcre
+    - flexi-streams
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "cl-unicode")'
+          --eval '(asdf:test-system "cl-unicode")'
+
+about:
+  repository: https://github.com/edicl/cl-unicode
+  homepage: https://edicl.github.io/cl-unicode/
+  license: BSD-2-Clause
+  summary: Portable Unicode library for Common Lisp
+  description: |
+    CL-UNICODE is a library which provides Common Lisp implementations with knowledge about Unicode characters including their name, their general category, the scripts and blocks they belong to, their numerical value, and several other properties. It also provides the ability to replace the standard syntax for reading Lisp characters with one that is Unicode-aware and is used to enhance [CL-PPCRE](http://weitz.de/cl-ppcre/) with [Unicode properties](http://weitz.de/cl-ppcre/#unicode).
+
+    CL-UNICODE is based on Unicode 5.1.
+
+    The code comes with a [BSD-style license](http://www.opensource.org/licenses/bsd-license.php) so you can basically do with it whatever you want.

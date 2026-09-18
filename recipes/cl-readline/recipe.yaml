@@ -1,0 +1,42 @@
+package:
+  name: cl-readline
+  version: "0.0.0.2025.05.02"
+
+source:
+  git: https://github.com/vindarel/cl-readline
+  rev: dd230a183c2ca3864ee8225aa94b653db9d0921e
+  submodules: false
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/cl-readline"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - cl-cffi
+    - readline
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "cl-readline")'
+
+about:
+  repository: https://github.com/vindarel/cl-readline
+  homepage: https://github.com/vindarel/cl-readline/blob/master/README.md
+  license: GPL-3.0-only
+  summary: Common Lisp bindings to GNU Readline library
+  description: |
+    Common Lisp bindings to [GNU Readline library](http://directory.fsf.org/wiki/Readline).
+
+    The Readline library provides a set of functions for use by applications that allow users to edit command lines as they are typed in. Both Emacs and vi editing modes are available. The Readline library includes additional functions to maintain a list of previously-entered command lines, to recall and perhaps reedit those lines, and perform csh-like history expansion on previous commands.
+
+    These bindings provide a Lispy interface to GNU Readline somewhat reducing the pain you are bound to experience when you use it. Some minor features are omitted, they may be added on request. Open an issue if you have any propositions.
