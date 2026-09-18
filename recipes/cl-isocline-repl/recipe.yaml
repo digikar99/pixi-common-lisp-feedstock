@@ -1,0 +1,63 @@
+package:
+  name: cl-isocline-repl
+  version: "0.0.0.2026.09.18"
+
+source:
+  git: https://github.com/digikar99/cl-isocline
+  rev: d35c11d4e33a8a01079e1cc16f1893fa51b9000e
+  submodules: false
+
+build:
+  noarch: generic
+  script:
+    interpreter: bash
+    content: |
+      mkdir -p "$PREFIX/bin"
+      cat > "$PREFIX/bin/cl-isocline-repl" <<'EOF'
+      #!/usr/bin/env bash
+
+      set -euo pipefail
+      sbcl --no-sysinit --no-userinit \
+        "$@" \
+        --eval '(require :asdf)' \
+        --eval '(asdf:load-system "isocline-repl")'\
+        --eval '(isocline-repl:main)' \
+        --eval '(uiop:quit)'
+      EOF
+      chmod +x "$PREFIX/bin/cl-isocline-repl"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - cl-cffi
+    - concrete-syntax-tree
+    - eclector
+    - styled-strings
+    - cl-isocline
+
+tests:
+  - script:
+      - which cl-isocline-repl
+
+about:
+  repository: https://github.com/digikar99/cl-isocline
+  homepage: https://github.com/digikar99/cl-isocline/blob/main/README.md
+  license: MIT
+  summary: MIT licensed Multiline REPL for Common Lisp
+  description: |
+    `isocline-repl` is a feature-rich Common Lisp REPL with support for:
+
+      -   multiline editing
+      -   history
+      -   syntax highlighting
+      -   basic debugging
+
+      [Isocline](https://github.com/daanx/isocline) is an alternative to libreadline, libedit and the likes. In contrast to the contagious GPL-licensed libreadline, it is
+
+      - MIT licensed
+      - Pure C
+      - Portable across Unix, Windows, MacOS
+      - Supports multiline editing out of the box
+      - ... and much more ...

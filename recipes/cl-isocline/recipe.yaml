@@ -1,0 +1,47 @@
+package:
+  name: cl-isocline
+  version: "0.0.0.2026.09.18"
+
+source:
+  git: https://github.com/digikar99/cl-isocline
+  rev: d35c11d4e33a8a01079e1cc16f1893fa51b9000e
+  submodules: false
+
+build:
+  noarch: generic
+  script:
+    - DEST="$PREFIX/common-lisp/cl-isocline"
+    - mkdir -p "$DEST"
+    - cp -r . "$DEST/"
+    - rm -rf "$DEST/.git"
+
+requirements:
+  run:
+    - sbcl
+    - cl-asdf
+    - alexandria
+    - cl-cffi
+
+tests:
+  - script:
+      - sbcl --no-userinit --non-interactive
+          --eval '(require :asdf)'
+          --eval '(asdf:load-system "isocline")'
+
+about:
+  repository: https://github.com/digikar99/cl-isocline
+  homepage: https://github.com/digikar99/cl-isocline/blob/main/README.md
+  license: MIT
+  summary: Foreign function bindings to isocline for Common Lisp 
+  description: |
+    [Isocline](https://github.com/daanx/isocline) is an alternative to libreadline, libedit and the likes. In contrast to the contagious GPL-licensed libreadline, it is
+
+      - MIT licensed
+      - Pure C
+      - Portable across Unix, Windows, MacOS
+      - Supports multiline editing out of the box
+      - ... and much more ...
+
+    This means it works as an awesome portable repl for Common Lisp, across operating systems and lisp implementations. If you want to supply a portable rich REPL for your Common Lisp application, this repository might just be your thing!
+
+    See [the README](https://github.com/digikar99/cl-isocline/blob/main/README.md) for more details.
